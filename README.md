@@ -5,5 +5,5 @@ docker run -p 80:80 stddev-service
 ```
 
 ```bash
-curl "http://localhost/random/mean?requests=2&length=5"
+curl "http://localhost/random/stddevs?requests=2&length=5"
 ```

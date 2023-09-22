@@ -12,7 +12,7 @@ func main() {
 }
 
 func runServer() {
-	http.HandleFunc("/random/mean", api.GetRandomMean)
+	http.HandleFunc("/random/stddevs", api.GetRandomStdDevs)
 	err := http.ListenAndServe(":80", nil)
 
 	if errors.Is(err, http.ErrServerClosed) {

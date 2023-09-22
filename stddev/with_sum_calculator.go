@@ -49,7 +49,7 @@ func stdDev(ints []int) (StdDev, error) {
 	if err != nil {
 		return StdDev{}, fmt.Errorf("could not calculate stddev: %v", err)
 	}
-	return StdDev{Stddev: int(sdev), Data: ints}, nil
+	return StdDev{Stddev: sdev, Data: ints}, nil
 }
 
 func intsToFloats(ints []int) []float64 {

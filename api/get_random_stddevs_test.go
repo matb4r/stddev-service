@@ -46,17 +46,17 @@ var testCases = []struct {
 	},
 }
 
-func TestGetRandomMean(t *testing.T) {
+func TestGetRandomStdDevs(t *testing.T) {
 	numGenerator = &tests.MockedNumGenerator{}
 	calculator = &tests.MockedCalculator{}
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			// given
-			req, _ := http.NewRequest("GET", "/random/mean?"+testCase.urlParams, nil)
+			req, _ := http.NewRequest("GET", "/random/stddevs?"+testCase.urlParams, nil)
 			rr := httptest.NewRecorder()
 			// when
-			GetRandomMean(rr, req)
+			GetRandomStdDevs(rr, req)
 			// then
 			assert.Equal(t, rr.Code, testCase.statusCode)
 			assert.Equal(t, rr.Header().Get("Content-Type"), "application/json")
@@ -69,10 +69,10 @@ func TestOnGeneratorError(t *testing.T) {
 	// given
 	numGenerator = &tests.MockedErrorNumGenerator{}
 	calculator = &tests.MockedCalculator{}
-	req, _ := http.NewRequest("GET", "/random/mean?requests=2&length=5", nil)
+	req, _ := http.NewRequest("GET", "/random/stddevs?requests=2&length=5", nil)
 	rr := httptest.NewRecorder()
 	// when
-	GetRandomMean(rr, req)
+	GetRandomStdDevs(rr, req)
 	// then
 	assert.Equal(t, http.StatusInternalServerError, rr.Code)
 	assert.Equal(t, "application/json", rr.Header().Get("Content-Type"))
@@ -83,10 +83,10 @@ func TestOnCalculatorError(t *testing.T) {
 	// given
 	numGenerator = &tests.MockedNumGenerator{}
 	calculator = &tests.MockedErrorCalculator{}
-	req, _ := http.NewRequest("GET", "/random/mean?requests=2&length=5", nil)
+	req, _ := http.NewRequest("GET", "/random/stddevs?requests=2&length=5", nil)
 	rr := httptest.NewRecorder()
 	// when
-	GetRandomMean(rr, req)
+	GetRandomStdDevs(rr, req)
 	// then
 	assert.Equal(t, http.StatusInternalServerError, rr.Code)
 	assert.Equal(t, "application/json", rr.Header().Get("Content-Type"))

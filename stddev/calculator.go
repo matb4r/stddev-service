@@ -1,8 +1,8 @@
 package stddev
 
 type StdDev struct {
-	Stddev int   `json:"stddev"`
-	Data   []int `json:"data"`
+	Stddev float64 `json:"stddev"`
+	Data   []int   `json:"data"`
 }
 
 type Calculator interface {

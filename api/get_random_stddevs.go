@@ -13,7 +13,7 @@ import (
 var numGenerator Generator = NewRandomOrgNumbersGenerator()
 var calculator Calculator = &StdDevsWithSumCalculator{}
 
-func GetRandomMean(w http.ResponseWriter, r *http.Request) {
+func GetRandomStdDevs(w http.ResponseWriter, r *http.Request) {
 	requests, err := getRequestsParam(r)
 	if err != nil {
 		writeErrorResponse(w, err, http.StatusBadRequest)
@@ -32,13 +32,13 @@ func GetRandomMean(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	stddevs, err := calculator.CalculateStdDevs(intSlices)
+	stdDevs, err := calculator.CalculateStdDevs(intSlices)
 	if err != nil {
 		writeDefaultErrorResponse(w, err)
 		return
 	}
 
-	writeResponse(w, stddevs)
+	writeResponse(w, stdDevs)
 }
 
 func getRequestsParam(r *http.Request) (int, error) {
@@ -73,8 +73,8 @@ func getLengthParam(r *http.Request) (int, error) {
 	return lengthInt, nil
 }
 
-func writeResponse(w http.ResponseWriter, stddevs []StdDev) {
-	jsonData, err := json.Marshal(stddevs)
+func writeResponse(w http.ResponseWriter, stdDevs []StdDev) {
+	jsonData, err := json.Marshal(stdDevs)
 	if err != nil {
 		writeDefaultErrorResponse(w, nil)
 		return
