@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-var numGenerator Generator = NewRandomOrgNumbersGenerator()
+var numGenerator Generator = NewSetResultsAtProperIndexAndErrChannelRandomOrgGenerator()
 var calculator Calculator = &StdDevsWithSumCalculator{}
 
 func GetRandomStdDevs(w http.ResponseWriter, r *http.Request) {

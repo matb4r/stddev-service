@@ -22,7 +22,7 @@ func TestShouldMakeIntSlicesFromTwoRequests(t *testing.T) {
 		requestsCount++
 	}))
 	defer testServer.Close()
-	generator := &RandomOrgNumbersGenerator{url: testServer.URL, min: 1, max: 100, timeout: time.Second}
+	generator := BufferedChannelRandomOrgNumbersGenerator{RandomOrgNumbersGenerator{url: testServer.URL, min: 1, max: 100, timeout: time.Second}}
 
 	// when
 	res, err := generator.GetIntSlices(2, 3)
@@ -49,7 +49,7 @@ func TestShouldReturnErrorWhenTimeoutOnOneOfRequests(t *testing.T) {
 		}
 	}))
 	defer testServer.Close()
-	generator := &RandomOrgNumbersGenerator{url: testServer.URL, min: 1, max: 100, timeout: 100 * time.Millisecond}
+	generator := &BufferedChannelRandomOrgNumbersGenerator{RandomOrgNumbersGenerator{url: testServer.URL, min: 1, max: 100, timeout: 100 * time.Millisecond}}
 
 	// when
 	res, err := generator.GetIntSlices(2, 3)
@@ -74,7 +74,7 @@ func TestShouldReturnErrorWhenNot200OnOneOfRequests(t *testing.T) {
 		requestsCount++
 	}))
 	defer testServer.Close()
-	generator := &RandomOrgNumbersGenerator{url: testServer.URL, min: 1, max: 100, timeout: time.Second}
+	generator := &BufferedChannelRandomOrgNumbersGenerator{RandomOrgNumbersGenerator{url: testServer.URL, min: 1, max: 100, timeout: time.Second}}
 
 	// when
 	res, err := generator.GetIntSlices(2, 3)
